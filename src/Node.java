@@ -7,7 +7,7 @@ public class Node {
     public int[] data;
     public boolean isRoot=false;
     public String operation;
-    public ArrayList<Node> childs = new ArrayList<>();
+    public ArrayList<Node> children = new ArrayList<>();
     public boolean isInitialized = false;
 
     private HashSet<Integer> resultSet;
@@ -41,15 +41,15 @@ public class Node {
             if (data == null) {
                 switch (operation) {
                     case "U":
-                        for (Node child : childs){
+                        for (Node child : children){
                             resultSet.addAll(child.calcDataSetsRecursively());
                         }
                         break;
                     case "I":
-                        if (!childs.isEmpty()){
-                            resultSet = childs.get(0).calcDataSetsRecursively();
-                            for (int i = 1; i < childs.size() ; i++) {
-                                resultSet.retainAll(childs.get(i).calcDataSetsRecursively());
+                        if (!children.isEmpty()){
+                            resultSet = children.get(0).calcDataSetsRecursively();
+                            for (int i = 1; i < children.size() ; i++) {
+                                resultSet.retainAll(children.get(i).calcDataSetsRecursively());
                             }
                         }
                         break;
