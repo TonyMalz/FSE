@@ -4,15 +4,17 @@ import java.util.HashSet;
 public class Node {
     public int id;
     public int parentId;
-    public int[] data;
-    public boolean isRoot=false;
+    public boolean isRoot = false;
     public String operation;
     public ArrayList<Node> children = new ArrayList<>();
     public boolean isInitialized = false;
 
     private HashSet<Integer> resultSet;
-    
-    public int[] getData(){
+    private int[] data;
+    public void setData(int[] data) {
+        this.data = data;
+    }
+    public int[] getData() {
         if (operation == null) {
             return data;
         }
@@ -26,30 +28,32 @@ public class Node {
         return data;
     }
 
-    private void updateData(){
+    private void updateData() {
         data = new int[resultSet.size()];
-        int i=0;
+        int i = 0;
         for (Integer val : resultSet) {
-            data[i++]=val;
+            data[i++] = val;
         }
     }
 
-    private HashSet<Integer> calcDataSetsRecursively(){
+    private HashSet<Integer> calcDataSetsRecursively() {
         if (resultSet == null) {
             resultSet = new HashSet<>();
 
             if (data == null) {
                 switch (operation) {
-                    case "U":
-                        for (Node child : children){
+                    case "U" :
+                        for (Node child : children) {
                             resultSet.addAll(child.calcDataSetsRecursively());
                         }
                         break;
-                    case "I":
-                        if (!children.isEmpty()){
-                            resultSet = children.get(0).calcDataSetsRecursively();
-                            for (int i = 1; i < children.size() ; i++) {
-                                resultSet.retainAll(children.get(i).calcDataSetsRecursively());
+                    case "I" :
+                        if (!children.isEmpty()) {
+                            resultSet = children.get(0)
+                                    .calcDataSetsRecursively();
+                            for (int i = 1; i < children.size(); i++) {
+                                resultSet.retainAll(children.get(i)
+                                        .calcDataSetsRecursively());
                             }
                         }
                         break;
@@ -65,7 +69,8 @@ public class Node {
         return resultSet;
     }
 
-    public String toString(){
+    @Override
+    public String toString() {
         return id + ", " + parentId;
     }
 }
