@@ -69,7 +69,7 @@ public class PrettyTreeTansducer {
 			for (int i = 0; i < data.length; i++) {
 				out += data[i];
 				if (i + 1 < data.length) {
-					out += " ,";
+					out += ", ";
 				}
 			}
 		}
